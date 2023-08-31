@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMealRequest;
 use App\Http\Requests\UpdateMealRequest;
+use App\Http\Resources\MealResource;
 use App\Models\Meal;
 use Inertia\Inertia;
 
@@ -14,9 +15,8 @@ class MealController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Meals', [
-            'meals' => Meal::all(),
-        ]);
+        $meals = MealResource::collection(Meal::all());
+        return Inertia::render('Meals/index', compact('meals'));
     }
 
     /**
